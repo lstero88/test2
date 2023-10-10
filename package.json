@@ -19,7 +19,8 @@
   "dependencies": {
     "axios": "^1.5.1",
     "cheerio": "^1.0.0-rc.12",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "request": "^2.88.2"
   },
   "bugs": {
     "url": "https://github.com/lstero88/test2/issues"
