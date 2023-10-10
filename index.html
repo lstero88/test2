@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Items</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #FFF;
+            color: #000;
+            text-align: left;
+            padding: 10px;
+        }
+
+        #container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .item {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .item-card {
+            flex-basis: calc(33.33% - 20px);
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        .item-card:hover {
+            transform: scale(1.05);
+        }
+
+        .item-card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .item-card {
+                flex-basis: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .item-card {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+	
+	
+	
+	
+	
+	
+	
+	   <script>
+       // const ajaxData = document.getElementById('container');
+
+		let data = "";
+		 
+		
+ 
+        function fetchData() {
+		
+ 
+				
+		let param2 = document.getElementById('theText').value;
+		
+ 
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/data?param1=Luke&param2=${param2}`, true);
+			
+ 
+			
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+				
+					//data = data  + xhr.responseText;
+					data = xhr.responseText;
+					
+					jsonDataConvert = JSON.parse(data);
+					
+                    //ajaxData.innerHTML = `Server says: ${data}`;
+					//alert("server says " + data);
+					
+					//document.getElementById('container').innerHTML = jsonDataConvert;
+					
+					
+					let buildHTML = "";
+			
+					jsonDataConvert.forEach((element, index) => {
+						
+						
+						//buildHTML += element[0] + "<br/>";   // Price
+						//buildHTML += element[1] + "<br/>";  // link
+						//buildHTML += element[2] + "<br/>";	 // description
+						//buildHTML += element[3] + "<br/>"   // image
+						
+         
+               // <img src="item1.jpg" alt="Item 1">
+               // <h2>Product 1</h2>
+              //  <p>Description of Product 1.</p>
+               // <p>Price: $19.99</p>
+         
+						
+						let rounder = Math.round(parseFloat(element[0]) * 100) / 100;
+						
+						buildHTML += '<div class="item-card">';
+						buildHTML += `<img src="${ element[3]}">`;
+						buildHTML += `<h2>${ element[2]}"</h2>`;
+						buildHTML += `<p>$${ rounder}</p>`;
+						buildHTML += '</div>';
+						
+ 
+						buildHTML += '<br/>';
+						
+					});
+					
+					
+					document.getElementById('container').innerHTML = '<div class="item">'+buildHTML+'</div>';
+					  
+					//alert(jsonDataConvert[0]);
+					
+					
+                   // setTimeout(fetchData, 2000); // Poll every 2 seconds
+                }
+            };
+
+            xhr.send();
+        }
+
+       // fetchData(); // Initial request
+    </script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</head>
+<body>
+    <header>
+        <h1>Enter website to get:</h1> 
+		<input type="text" id="theText" value="https://www.etsy.com/shop/uniqueinvitation7" style="width: 800px;">
+		<button  onClick="fetchData()">Get</button>
+    </header>
+    <div id="container">
+        <div class="item">
+            <div class="item-card">
+                <img src="item1.jpg" alt="Item 1">
+                <h2>Product 1</h2>
+                <p>Description of Product 1.</p>
+                <p>Price: $19.99</p>
+            </div>
+            <div class="item-card">
+                <img src="item2.jpg" alt="Item 2">
+                <h2>Product 2</h2>
+                <p>Description of Product 2.</p>
+                <p>Price: $29.99</p>
+            </div>
+            <div class="item-card">
+                <img src="item3.jpg" alt="Item 3">
+                <h2>Product 3</h2>
+                <p>Description of Product 3.</p>
+                <p>Price: $39.99</p>
+            </div>
+        </div>
+        <!-- Repeat the item-cards for additional products -->
+    </div>
+</body>
+</html>
